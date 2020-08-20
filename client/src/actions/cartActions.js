@@ -1,6 +1,10 @@
-import { ADD_TO_CART, CART_LOADING, DELETE_CART_ITEM,DELETE_CART } from './types';
+import {
+  ADD_TO_CART,
+  CART_LOADING,
+  DELETE_CART_ITEM,
+  DELETE_CART,
+} from './types';
 import axios from 'axios';
-
 
 export const addToCart = (_id, user_id, quantity) => (dispatch) => {
   const config = {
@@ -17,6 +21,7 @@ export const addToCart = (_id, user_id, quantity) => (dispatch) => {
       payload: res.data,
     });
   });
+  alert('Added to Cart!!');
 };
 export const deleteCartItem = (_id) => (dispatch) => {
   const body = _id;
@@ -53,12 +58,11 @@ export const setCartLoading = () => {
   };
 };
 
-export const deleteCart = () => async (dispatch)=>{
-   //console.log('/api/users/deletecart');
-    const res = await axios.put('/api/users/deletecart');
+export const deleteCart = () => async (dispatch) => {
+  //console.log('/api/users/deletecart');
+  const res = await axios.put('/api/users/deletecart');
 
-    dispatch({
-      type: DELETE_CART
-    });
-
+  dispatch({
+    type: DELETE_CART,
+  });
 };
