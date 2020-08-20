@@ -25,7 +25,8 @@ const App = () => {
       <Router>
         <Fragment>
           <Navbar />
-
+          <br />
+          <br />
           <Switch>
             <Route exact path='/' component={FullWidthGrid} />
             <Route component={Routes} />

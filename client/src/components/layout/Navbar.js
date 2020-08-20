@@ -59,17 +59,15 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {
   );
 
   return (
-    <div className='hide-scroll'>
-      <nav className='navbar bg-dark'>
-        <h1>
-          <Link to='/' style={{ textDecoration: 'none' }}>
-            <i className='fas fa-shopping-bag' /> Defashionq
-          </Link>
-        </h1>
+    <nav className='navbar bg-dark'>
+      <h1>
+        <Link to='/' style={{ textDecoration: 'none' }}>
+          <i className='fas fa-shopping-bag' /> Defashionq
+        </Link>
+      </h1>
 
-        {<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>}
-      </nav>
-    </div>
+      {<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>}
+    </nav>
   );
 };
 

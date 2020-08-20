@@ -746,9 +746,6 @@ button {
   .hide-sm {
     display: none;
   }
-  .hide-scroll {
-    scroll-padding-top: 5%;
-  }
   /* Text Styles */
   .x-large {
     font-size: 3rem;
