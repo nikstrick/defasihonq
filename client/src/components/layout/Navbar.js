@@ -59,15 +59,17 @@ const Navbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {
   );
 
   return (
-    <nav className='navbar bg-dark'>
-      <h1>
-        <Link to='/' style={{ textDecoration: 'none' }}>
-          <i className='fas fa-shopping-bag' /> Defashionq
-        </Link>
-      </h1>
+    <div className='hide-scroll'>
+      <nav className='navbar bg-dark'>
+        <h1>
+          <Link to='/' style={{ textDecoration: 'none' }}>
+            <i className='fas fa-shopping-bag' /> Defashionq
+          </Link>
+        </h1>
 
-      {<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>}
-    </nav>
+        {<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>}
+      </nav>
+    </div>
   );
 };
 

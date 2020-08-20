@@ -24,13 +24,12 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Fragment>
-    
           <Navbar />
-    
+
           <Switch>
-            <Route exact path="/" component={FullWidthGrid} />
+            <Route exact path='/' component={FullWidthGrid} />
             <Route component={Routes} />
-            </Switch>
+          </Switch>
         </Fragment>
       </Router>
     </Provider>
