@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { getProduct } from '../../actions/productActions';
 import { addToCart } from '../../actions/cartActions';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 class ProductScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = { quantity: 1 };
+    this.state = { quantity: 1, buy: false };
 
     this.handleChange = this.handleChange.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,6 +27,7 @@ class ProductScreen extends Component {
       Math.round(
         ((viewProduct.mrp - viewProduct.price) / viewProduct.mrp) * 100 * 100
       ) / 100;
+    if (this.state.buy) return <Redirect to='/cart' />;
     return (
       <div>
         <div className='btn btn-default'>
@@ -99,7 +100,24 @@ class ProductScreen extends Component {
                 </button>
               </li>
               <li>
-                <button className='buy-now'>Buy Now</button>
+                <button
+                  className='buy-now'
+                  onClick={() => {
+                    if (isAuthenticated) {
+                      // console.log(this.props.match.params.id);
+                      // console.log(user._id);
+                      this.props.addToCart(
+                        this.props.match.params.id,
+                        user._id,
+                        this.state.quantity
+                      );
+                      setTimeout(this.setState({ buy: true }), 1500);
+                    } else {
+                      alert('You are not Logged in!!');
+                    }
+                  }}>
+                  Buy Now
+                </button>
               </li>
             </ul>
           </div>

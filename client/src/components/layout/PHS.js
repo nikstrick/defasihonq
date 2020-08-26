@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -7,13 +7,13 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getProducts } from '../../actions/productActions';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
 import { deleteProduct } from '../../actions/adminActions';
-import { addToCart } from '../../actions/cartActions';
+import { addToCart, deleteCart } from '../../actions/cartActions';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -38,12 +38,16 @@ function FullWidthGrid({
   addToCart,
   deleteProduct,
 }) {
+  const [buy, setbuy] = useState(false);
   useEffect(() => {
     getProducts();
   }, []);
   const classes = useStyles();
   const { products } = product;
   const { isAuthenticated, user } = auth;
+  if (buy) {
+    return <Redirect to='/cart' />;
+  }
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
@@ -110,7 +114,19 @@ function FullWidthGrid({
                         }}>
                         &#128722; Add to Cart
                       </button>
-                      <button className='buy-now'>Buy Now</button>
+                      <button
+                        className='buy-now'
+                        onClick={() => {
+                          if (isAuthenticated) {
+                            addToCart(product._id, user._id, 1);
+                            setTimeout(() => setbuy(true), 1500);
+                            // return <Redirect to='/cart' />;
+                          } else {
+                            alert('You are not Logged in!!');
+                          }
+                        }}>
+                        Buy Now
+                      </button>
                     </div>
                   )}
                 </div>
@@ -139,4 +155,5 @@ export default connect(mapStateToProps, {
   logout,
   addToCart,
   deleteProduct,
+  deleteCart,
 })(FullWidthGrid);
